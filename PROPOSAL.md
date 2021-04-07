@@ -14,14 +14,16 @@ the instructions activity when pressing instructions, etc.
 ## Week 2
 
 During the second week of the project, I will mostly design the game engine and include things like ball collisions,
-pool cue (a pool stick)
-collisions with ball, among other things like maintaining score, and having my program accurately recognize the holes on
-the pool table. I will also, most importantly, make sure input functionalities work properly such as dragging the the
-pool cue and releasing as well as clicking the buttons on the screen.
+pool cue (a pool stick) collisions with ball, among other things like maintaining score, and having my program accurately 
+recognize the holes on the pool table. I will also, most importantly, make sure input functionalities work properly such 
+as dragging the pool cue and releasing as well as clicking the buttons on the screen. Additionally, I will make any changes 
+necessary to the layout of the game from Week 1 to better accommodate the game engine.
 
 ## Week 3
 
 During the third week of the project, the aim is to add a cool little feature of my own to the pool game. Specifically,
 for my project, I plan to implement a second/different version of the pool game that the user can choose in the starting
 menu. This can be bumper pool or one pocket pool or some other format that makes the traditional game either easier or
-harder for the player to win.
+harder for the player to win. Although the feature hasn't yet been exactly confirmed, it will most likely be one of these 
+unique game formats for the player to try out. Ultimately, the goal of Week 3 is to add a cool twist to a traditional 
+pool game.
