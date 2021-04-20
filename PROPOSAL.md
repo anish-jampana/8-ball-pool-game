@@ -27,3 +27,4 @@ menu. This can be bumper pool or one pocket pool or some other format that makes
 harder for the player to win. Although the feature hasn't yet been exactly confirmed, it will most likely be one of these 
 unique game formats for the player to try out. Ultimately, the goal of Week 3 is to add a cool twist to a traditional 
 pool game.
+
