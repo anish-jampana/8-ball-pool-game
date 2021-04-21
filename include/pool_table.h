@@ -14,13 +14,23 @@ namespace poolgame {
         PoolTable();
         void Display() const;
         void Update();
+        void MouseDrag(const glm::vec2& length);
+        void MouseRelease();
     private:
         void DrawTable() const;
         void DrawHoles() const;
         void DrawBalls() const;
+        void DrawCue() const;
         void EdgeCollisions(int specific_particle);
         void Friction(int specific_particle);
 
+        bool CheckBallsMovingTowardsEachOther(int first, int second);
+        std::vector<int> FindCollidedBalls();
+        glm::vec2 CalculateCollidedVelocity(int first, int second);
+        void BallCollisions(int specific_particle);
+        bool Movement() const;
+
+        glm::vec2 cue_end_;
         float friction_;
         int top_left_x_;
         int top_left_y_;

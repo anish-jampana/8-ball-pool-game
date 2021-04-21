@@ -15,8 +15,12 @@ namespace poolgame {
         table_.Update();
     }
 
-    void PoolGameApp::mouseDown(ci::app::MouseEvent event) {
-        std::cout<<"Hi"<<std::endl;
+    void PoolGameApp::mouseUp(ci::app::MouseEvent event) {
+        table_.MouseRelease();
+    }
+
+    void PoolGameApp::mouseDrag(ci::app::MouseEvent event) {
+        table_.MouseDrag(event.getPos());
     }
 
 }

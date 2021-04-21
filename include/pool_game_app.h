@@ -16,8 +16,8 @@ namespace poolgame {
         PoolGameApp();
         void draw() override;
         void update() override;
-        void mouseDown(ci::app::MouseEvent event) override;
-        //void mouseDrag(ci::app::MouseEvent event) override;
+        void mouseUp(ci::app::MouseEvent event) override;
+        void mouseDrag(ci::app::MouseEvent event) override;
 
         const int kWindowSize = 1000;
         const int kMargin = 100;
