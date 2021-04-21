@@ -1,3 +1,4 @@
+// contains similarities in implementation to my ideal gas MP
 #pragma once
 #include "cinder/gl/gl.h"
 
