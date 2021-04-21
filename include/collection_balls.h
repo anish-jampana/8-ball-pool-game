@@ -8,6 +8,8 @@ namespace poolgame {
     public:
         CollectionBalls();
         std::vector<Ball> GetBalls();
+        std::vector<glm::vec2> GetPositions();
+        std::vector<glm::vec3> GetColors();
     private:
         std::vector<Ball> balls_;
         std::vector<glm::vec3> colors_ = {glm::vec3(1,1,0), glm::vec3(0,0,1),

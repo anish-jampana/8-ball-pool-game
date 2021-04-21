@@ -17,6 +17,8 @@ namespace poolgame {
 
         glm::vec2 GetBallPosition();
 
+        glm::vec2 GetBallVelocity();
+
         int GetRadius();
 
     private:
@@ -28,6 +30,8 @@ namespace poolgame {
         bool ball_striped_;
 
         glm::vec2 ball_position_;
+
+        glm::vec2 ball_velocity_;
 
         int radius_;
     };

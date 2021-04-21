@@ -5,6 +5,8 @@ namespace poolgame {
 
     PoolTable::PoolTable() {
         collection_of_balls_ = CollectionBalls();
+        ball_positions_ = collection_of_balls_.GetPositions();
+
 
     }
 

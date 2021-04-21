@@ -21,6 +21,10 @@ namespace poolgame {
         return ball_position_;
     }
 
+    glm::vec2 Ball::GetBallVelocity() {
+        return ball_velocity_;
+    }
+
     int Ball::GetRadius() {
         return radius_;
     }

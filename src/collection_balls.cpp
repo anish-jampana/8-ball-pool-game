@@ -18,5 +18,12 @@ namespace poolgame {
     std::vector<Ball> CollectionBalls::GetBalls() {
         return balls_;
     }
+
+    std::vector<glm::vec3> CollectionBalls::GetColors() {
+        return colors_;
+    }
+    std::vector<glm::vec2> CollectionBalls::GetPositions() {
+        return positions_;
+    }
 }
 

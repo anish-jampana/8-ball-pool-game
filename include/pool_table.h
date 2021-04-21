@@ -19,7 +19,10 @@ namespace poolgame {
         void DrawBalls() const;
 
         CollectionBalls collection_of_balls_ = CollectionBalls();
-        //vec2
+        std::vector<glm::vec2> ball_positions_;
+        //std::vector<glm::vec2> ball_velocities_;
+        //int ball_radius_;
+
 
     };
 
