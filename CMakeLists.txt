@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 set(CMAKE_CXX_STANDARD 11)
-project(ideal-gas)
+project(pool-game)
 
 # This tells the compiler to not aggressively optimize and
 # to include debugging information so that the debugger
@@ -36,6 +36,12 @@ FetchContent_Declare(
         GIT_TAG v2.x
 )
 
+FetchContent_Declare(
+        box2d
+        GIT_REPOSITORY https://github.com/erincatto/box2d.git
+        GIT_TAG v2.4.1
+)
+
 # Adds Catch2 testing library
 FetchContent_GetProperties(catch2)
 if(NOT catch2_POPULATED)
@@ -44,25 +50,35 @@ if(NOT catch2_POPULATED)
     target_include_directories(catch2 INTERFACE ${catch2_SOURCE_DIR}/single_include)
 endif()
 
+# Adds Box2D library
+FetchContent_GetProperties(box2d)
+if(NOT box2d_POPULATED)
+    FetchContent_Populate(box2d)
+    add_library(box2d INTERFACE)
+    target_include_directories(box2d INTERFACE ${box2d_SOURCE_DIR}/single_include)
+endif()
+
 get_filename_component(CINDER_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../" ABSOLUTE)
 get_filename_component(APP_PATH "${CMAKE_CURRENT_SOURCE_DIR}/" ABSOLUTE)
 
 include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 
 list(APPEND SOURCE_FILES    src/pool_table.cc
-        src/pool_game_app.cc)
+        src/pool_game_app.cc
+        src/ball.cpp
+        src/collection_balls.cpp)
 
 list(APPEND TEST_FILES tests/rename_this_test_file.cc)
 
 ci_make_app(
-        APP_NAME        gas-simulation
+        APP_NAME        pool-game
         CINDER_PATH     ${CINDER_PATH}
         SOURCES         apps/cinder_app_main.cc ${SOURCE_FILES}
         INCLUDES        include
 )
 
 ci_make_app(
-        APP_NAME        gas-simulation-test
+        APP_NAME        pool-game-test
         CINDER_PATH     ${CINDER_PATH}
         SOURCES         tests/test_main.cc ${SOURCE_FILES} ${TEST_FILES}
         INCLUDES        include
@@ -70,5 +86,5 @@ ci_make_app(
 )
 
 if(MSVC)
-    set_property(TARGET gas-simulation-test APPEND_STRING PROPERTY LINK_FLAGS " /SUBSYSTEM:CONSOLE")
+    set_property(TARGET pool-game-test APPEND_STRING PROPERTY LINK_FLAGS " /SUBSYSTEM:CONSOLE")
 endif()

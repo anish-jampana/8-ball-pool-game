@@ -1,8 +1,8 @@
 #pragma once
 
 #include "cinder/gl/gl.h"
+#include "collection_balls.h"
 
-using glm::vec2;
 
 namespace poolgame {
 
@@ -11,16 +11,16 @@ namespace poolgame {
     public:
 
         PoolTable();
-
-
         void Display() const;
-
-
         void AdvanceOneFrame();
-
     private:
+        void DrawTable() const;
+        void DrawHoles() const;
+        void DrawBalls() const;
 
-        int dummy_variable_ = 0;
+        CollectionBalls collection_of_balls_ = CollectionBalls();
+        //vec2
+
     };
 
 }  // namespace idealgas
