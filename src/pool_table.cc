@@ -4,10 +4,20 @@
 namespace poolgame {
 
     PoolTable::PoolTable() {
+        friction_ = 0.0015;
+        top_left_x_ = 100;
+        top_left_y_ = 250;
+        bottom_right_x_ = 900;
+        bottom_right_y_ = 750;
         collection_of_balls_ = BallGenerator();
         ball_positions_ = collection_of_balls_.GetPositions();
+        ball_velocities_ = collection_of_balls_.GetVelocities();
         ball_colors_ = collection_of_balls_.GetColors();
         num_of_balls_ = collection_of_balls_.GetBalls().size();
+
+        std::cout<<ball_positions_.size()<<std::endl;
+        std::cout<<ball_velocities_.size()<<std::endl;
+        std::cout<<ball_colors_.size()<<std::endl;
     }
 
     void PoolTable::Display() const {
@@ -18,17 +28,52 @@ namespace poolgame {
 
     void PoolTable::Update() {
         for (size_t i = 0; i < num_of_balls_; i++) {
-            ball_positions_.at(i) = ball_positions_.at(i) + collection_of_balls_.GetBalls().at(i).GetBallVelocity();
+            EdgeCollisions(i);
+            ball_positions_.at(i) = ball_positions_.at(i) + ball_velocities_.at(i);
+            Friction(i);
+        }
+    }
+
+    void PoolTable::EdgeCollisions(int specific_particle) {
+        // updates velocities for bounce left and right walls
+        if (ball_positions_.at(specific_particle).x - 10 <= top_left_x_ + 25 || ball_positions_.at(specific_particle).x + 10 >= bottom_right_x_ - 25) {
+            ball_velocities_.at(specific_particle).x = ball_velocities_.at(specific_particle).x * -1;
+        }
+        // updates velocities for bounce up and down walls
+        if (ball_positions_.at(specific_particle).y - 10 <= top_left_y_ + 25 || ball_positions_.at(specific_particle).y + 10 >= bottom_right_y_ - 25) {
+            ball_velocities_.at(specific_particle).y = ball_velocities_.at(specific_particle).y * -1;
+        }
+    }
+
+    void PoolTable::Friction(int specific_particle) {
+        if (ball_velocities_.at(specific_particle).x > 0) {
+            ball_velocities_.at(specific_particle).x = ball_velocities_.at(specific_particle).x - friction_;
+            if (ball_velocities_.at(specific_particle).x < 0) {
+                ball_velocities_.at(specific_particle).x = 0;
+            }
+        } else if (ball_velocities_.at(specific_particle).x < 0) {
+            ball_velocities_.at(specific_particle).x = ball_velocities_.at(specific_particle).x + friction_;
+            if (ball_velocities_.at(specific_particle).x > 0) {
+                ball_velocities_.at(specific_particle).x = 0;
+            }
+        } else if (ball_velocities_.at(specific_particle).y > 0) {
+            ball_velocities_.at(specific_particle).y = ball_velocities_.at(specific_particle).y - friction_;
+            if (ball_velocities_.at(specific_particle).y < 0) {
+                ball_velocities_.at(specific_particle).y = 0;
+            }
+        } else if (ball_velocities_.at(specific_particle).y < 0) {
+            ball_velocities_.at(specific_particle).y = ball_velocities_.at(specific_particle).y + friction_;
+            if (ball_velocities_.at(specific_particle).y > 0) {
+                ball_velocities_.at(specific_particle).y = 0;
+            }
         }
     }
 
     void PoolTable::DrawTable() const {
-        glm::vec2 point_1 = glm::vec2(100, 250);
-        glm::vec2 point_2 = glm::vec2(900, 750);
         cinder::gl::color(0, 0.38f, 0.11f);
-        cinder::gl::drawSolidRect(cinder::Rectf(point_1.x, point_1.y, point_2.x, point_2.y));
+        cinder::gl::drawSolidRect(cinder::Rectf(top_left_x_, top_left_y_, bottom_right_x_, bottom_right_y_));
         cinder::gl::color(0.36f, 0.20f, 0.09f);
-        cinder::gl::drawStrokedRect(cinder::Rectf(point_1.x, point_1.y, point_2.x, point_2.y), 50);
+        cinder::gl::drawStrokedRect(cinder::Rectf(top_left_x_, top_left_y_, bottom_right_x_, bottom_right_y_), 50);
     }
 
     void PoolTable::DrawHoles() const {

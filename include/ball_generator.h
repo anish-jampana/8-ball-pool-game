@@ -10,6 +10,7 @@ namespace poolgame {
         BallGenerator();
         std::vector<Ball> GetBalls();
         std::vector<glm::vec2> GetPositions();
+        std::vector<glm::vec2> GetVelocities();
         std::vector<glm::vec3> GetColors();
     private:
         void GenerateBalls();

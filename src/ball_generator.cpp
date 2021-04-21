@@ -10,8 +10,6 @@ namespace poolgame {
     }
 
     void BallGenerator::GenerateBalls() {
-        std::cout<<positions_.size() << std::endl;
-
         for (size_t i = 0; i < 8; i++) {
             Ball ball = Ball(i + 1, false, colors_.at(i), positions_.at(i), glm::vec2(10,0), 10);
             balls_.push_back(ball);
@@ -42,7 +40,7 @@ namespace poolgame {
 
     void BallGenerator::GenerateVelocities() {
         for(size_t i = 0; i < positions_.size(); i++) {
-            velocities_.push_back(glm::vec2(0,0));
+            velocities_.push_back(glm::vec2(1,0));
         }
     }
 
@@ -60,6 +58,10 @@ namespace poolgame {
 
     std::vector<glm::vec2> BallGenerator::GetPositions() {
         return positions_;
+    }
+
+    std::vector<glm::vec2> BallGenerator::GetVelocities() {
+        return velocities_;
     }
 }
 
