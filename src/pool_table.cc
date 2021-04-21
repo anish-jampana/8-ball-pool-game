@@ -1,13 +1,13 @@
-#include <collection_balls.h>
+#include <ball_generator.h>
 #include "pool_table.h"
 
 namespace poolgame {
 
     PoolTable::PoolTable() {
-        collection_of_balls_ = CollectionBalls();
+        collection_of_balls_ = BallGenerator();
         ball_positions_ = collection_of_balls_.GetPositions();
-
-
+        ball_colors_ = collection_of_balls_.GetColors();
+        num_of_balls_ = collection_of_balls_.GetBalls().size();
     }
 
     void PoolTable::Display() const {
@@ -16,8 +16,10 @@ namespace poolgame {
         DrawBalls();
     }
 
-    void PoolTable::AdvanceOneFrame() {
-
+    void PoolTable::Update() {
+        for (size_t i = 0; i < num_of_balls_; i++) {
+            ball_positions_.at(i) = ball_positions_.at(i) + collection_of_balls_.GetBalls().at(i).GetBallVelocity();
+        }
     }
 
     void PoolTable::DrawTable() const {
@@ -56,13 +58,10 @@ namespace poolgame {
     }
 
     void PoolTable::DrawBalls() const {
-        CollectionBalls collection_of_balls = CollectionBalls();
-        for (size_t i = 0; i < collection_of_balls.GetBalls().size(); i++) {
-            Ball ball = collection_of_balls.GetBalls().at(i);
-            cinder::gl::color(ball.GetBallColor().x,ball.GetBallColor().y,ball.GetBallColor().z);
-            cinder::gl::drawSolidCircle(ball.GetBallPosition(), ball.GetRadius(), -1);
+        for (size_t i = 0; i < ball_positions_.size(); i++) {
+            cinder::gl::color(ball_colors_.at(i).x, ball_colors_.at(i).y, ball_colors_.at(i).z);
+            cinder::gl::drawSolidCircle(ball_positions_.at(i), 10, -1);
         }
     }
-
 
 }  // namespace idealgas

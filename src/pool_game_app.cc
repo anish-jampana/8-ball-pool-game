@@ -12,6 +12,7 @@ namespace poolgame {
         table_.Display();
     }
     void PoolGameApp::update() {
+        table_.Update();
     }
 
 }

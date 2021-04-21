@@ -8,7 +8,7 @@ namespace poolgame {
 
     public:
 
-        Ball(int number, bool striped, glm::vec3 color, glm::vec2 position, int radius);
+        Ball(int number, bool striped, glm::vec3 color, glm::vec2 position, glm::vec2 velocity, int radius);
 
         int GetBallNumber();
 

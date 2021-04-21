@@ -2,7 +2,7 @@
 #pragma once
 
 #include "cinder/gl/gl.h"
-#include "collection_balls.h"
+#include "ball_generator.h"
 
 
 namespace poolgame {
@@ -13,18 +13,16 @@ namespace poolgame {
 
         PoolTable();
         void Display() const;
-        void AdvanceOneFrame();
+        void Update();
     private:
         void DrawTable() const;
         void DrawHoles() const;
         void DrawBalls() const;
 
-        CollectionBalls collection_of_balls_ = CollectionBalls();
+        BallGenerator collection_of_balls_;
         std::vector<glm::vec2> ball_positions_;
-        //std::vector<glm::vec2> ball_velocities_;
-        //int ball_radius_;
-
-
+        std::vector<glm::vec3> ball_colors_;
+        int num_of_balls_;
     };
 
 }  // namespace idealgas

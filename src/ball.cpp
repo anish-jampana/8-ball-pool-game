@@ -1,11 +1,12 @@
 #include "ball.h"
 
 namespace poolgame {
-    Ball::Ball(int number, bool striped, glm::vec3 color, glm::vec2 position, int radius) {
+    Ball::Ball(int number, bool striped, glm::vec3 color, glm::vec2 position, glm::vec2 velocity, int radius) {
         ball_num_ = number;
         ball_striped_ = striped;
         ball_color_ = color;
         ball_position_ = position;
+        ball_velocity_ = velocity;
         radius_ = radius;
     }
     int Ball::GetBallNumber() {
