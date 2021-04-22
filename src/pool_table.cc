@@ -61,7 +61,7 @@ namespace poolgame {
             }
         }
     }
-
+    // make changes
     void PoolTable::Friction(int specific_particle) {
         if (ball_velocities_.at(specific_particle).x > 0) {
             ball_velocities_.at(specific_particle).x = ball_velocities_.at(specific_particle).x - friction_;
@@ -72,6 +72,7 @@ namespace poolgame {
             ball_velocities_.at(specific_particle).x = ball_velocities_.at(specific_particle).x + friction_;
             if (ball_velocities_.at(specific_particle).x > 0) {
                 ball_velocities_.at(specific_particle).x = 0;
+
             }
         } else if (ball_velocities_.at(specific_particle).y > 0) {
             ball_velocities_.at(specific_particle).y = ball_velocities_.at(specific_particle).y - friction_;
