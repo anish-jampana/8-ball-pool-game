@@ -17,13 +17,19 @@ namespace poolgame {
         void MouseDrag(const glm::vec2& length);
         void MouseRelease();
     private:
+
+        std::vector<glm::vec2> GenerateHoles();
+
+        //draw functions
         void DrawTable() const;
         void DrawHoles() const;
         void DrawBalls() const;
         void DrawCue() const;
-        void EdgeCollisions(int specific_particle);
-        void Friction(int specific_particle);
 
+        // collision functions
+        void EdgeCollisions(int specific_particle);
+        void HoleCollision(int specific_particle);
+        void Friction(int specific_particle);
         bool CheckBallsMovingTowardsEachOther(int first, int second);
         std::vector<int> FindCollidedBalls();
         glm::vec2 CalculateCollidedVelocity(int first, int second);
@@ -32,10 +38,13 @@ namespace poolgame {
 
         glm::vec2 cue_end_;
         float friction_;
+        std::vector<glm::vec2> holes_;
+
         int top_left_x_;
         int top_left_y_;
         int bottom_right_x_;
         int bottom_right_y_;
+
         BallGenerator collection_of_balls_;
         std::vector<glm::vec2> ball_positions_;
         std::vector<glm::vec2> ball_velocities_;
