@@ -16,6 +16,12 @@ namespace poolgame {
         void Update();
         void MouseDrag(const glm::vec2& length);
         void MouseRelease();
+
+        std::vector<glm::vec2> GetPositions();
+        std::vector<glm::vec2> GetVelocities();
+        void SetBallPositions(std::vector<glm::vec2> positions);
+        void SetBallVelocities(std::vector<glm::vec2> velocities);
+        void SetNumOfBalls(int num);
     private:
 
         std::vector<glm::vec2> GenerateHoles();
