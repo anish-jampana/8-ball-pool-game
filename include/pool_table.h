@@ -1,4 +1,3 @@
-// contains similarities in implementation to my ideal gas MP
 #pragma once
 
 #include "cinder/gl/gl.h"
@@ -56,6 +55,7 @@ namespace poolgame {
         std::vector<glm::vec2> ball_velocities_;
         std::vector<glm::vec3> ball_colors_;
         int num_of_balls_;
+        int radius_;
     };
 
 }  // namespace idealgas

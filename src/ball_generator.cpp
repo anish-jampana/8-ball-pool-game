@@ -32,12 +32,12 @@ namespace poolgame {
     }
 
     void BallGenerator::GeneratePositions() {
-        positions_ = {glm::vec2(250, 500), glm::vec2(700, 500), glm::vec2(720, 510),
-                      glm::vec2(720, 490), glm::vec2(740, 520), glm::vec2(740, 500),
-                      glm::vec2(740, 480), glm::vec2(760, 530), glm::vec2(760, 510),
-                      glm::vec2(760, 490), glm::vec2(760, 470), glm::vec2(780, 540),
-                      glm::vec2(780, 520), glm::vec2(780, 500), glm::vec2(780, 480),
-                      glm::vec2(780, 460)};
+        positions_ = {glm::vec2(250, 500), glm::vec2(700, 500), glm::vec2(720.1, 510.05),
+                      glm::vec2(720.1, 489.95), glm::vec2(740.2, 520.1), glm::vec2(740.2, 500),
+                      glm::vec2(740.2, 479.9), glm::vec2(760.3, 530.15), glm::vec2(760.3, 510.05),
+                      glm::vec2(760.3, 489.95), glm::vec2(760.3, 469.85), glm::vec2(780.4, 540.2),
+                      glm::vec2(780.4, 520.1), glm::vec2(780.4, 500), glm::vec2(780.4, 479.9),
+                      glm::vec2(780.4, 459.8)};
     }
 
     void BallGenerator::GenerateVelocities() {

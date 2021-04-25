@@ -12,7 +12,7 @@ namespace poolgame {
     int Ball::GetBallNumber() {
         return ball_num_;
     }
-    glm::vec3 Ball::GetBallColor() {
+    glm::vec3 Ball::GetBallColor() const {
         return ball_color_;
     }
     bool Ball::GetStriped() {

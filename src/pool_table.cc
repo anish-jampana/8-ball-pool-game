@@ -1,3 +1,4 @@
+
 #include <ball_generator.h>
 #include "pool_table.h"
 
@@ -16,6 +17,7 @@ namespace poolgame {
         num_of_balls_ = collection_of_balls_.GetBalls().size();
         cue_end_ = ball_positions_.at(0);
         holes_ = GenerateHoles();
+        radius_ = collection_of_balls_.GetBalls().at(0).GetRadius();
     }
 
     void PoolTable::Display() const {
@@ -32,8 +34,9 @@ namespace poolgame {
             //HoleCollision(i);
             BallCollisions(i);
             EdgeCollisions(i);
-            ball_positions_.at(i) = ball_positions_.at(i) + ball_velocities_.at(i);
-            Friction(i);
+            float time_step = 1;
+            ball_positions_.at(i) = ball_positions_.at(i) + (ball_velocities_.at(i) * time_step);
+            //Friction(i);
         }
     }
 
@@ -58,9 +61,11 @@ namespace poolgame {
         for(size_t i = 0; i < holes_.size(); i++) {
             if (glm::distance(ball_positions_.at(specific_particle), holes_.at(i)) <= 25) {
                 ball_positions_.erase(ball_positions_.begin() + specific_particle);
+                num_of_balls_--;
             }
         }
     }
+
     // make changes
     void PoolTable::Friction(int specific_particle) {
         if (ball_velocities_.at(specific_particle).x > 0) {
@@ -72,7 +77,6 @@ namespace poolgame {
             ball_velocities_.at(specific_particle).x = ball_velocities_.at(specific_particle).x + friction_;
             if (ball_velocities_.at(specific_particle).x > 0) {
                 ball_velocities_.at(specific_particle).x = 0;
-
             }
         } else if (ball_velocities_.at(specific_particle).y > 0) {
             ball_velocities_.at(specific_particle).y = ball_velocities_.at(specific_particle).y - friction_;
@@ -117,7 +121,7 @@ namespace poolgame {
         std::vector<int> collided_balls;
         for (size_t i = 0; i < num_of_balls_; i++) {
             for (size_t j = 0; j < num_of_balls_; j++) {
-                int contact_distance = 10 + 10;
+                int contact_distance = 2 * radius_;
                 if (glm::distance(ball_positions_.at(i), ball_positions_.at(j)) <=
                     (contact_distance) &&
                     i != j) {
@@ -132,9 +136,9 @@ namespace poolgame {
 
     glm::vec2 PoolTable::CalculateCollidedVelocity(int first, int second) {
         glm::vec2 subtraction_velocities = ball_velocities_.at(first) -
-                                      ball_velocities_.at(second);
+                                           ball_velocities_.at(second);
         glm::vec2 subtraction_positions = ball_positions_.at(first) -
-                                     ball_positions_.at(second);
+                                          ball_positions_.at(second);
         float dot_product = glm::dot(subtraction_velocities, subtraction_positions);
         float position_length_squared =
                 glm::length(subtraction_positions) * glm::length(subtraction_positions);
@@ -170,7 +174,7 @@ namespace poolgame {
     void PoolTable::DrawBalls() const {
         for (size_t i = 0; i < num_of_balls_; i++) {
             cinder::gl::color(ball_colors_.at(i).x, ball_colors_.at(i).y, ball_colors_.at(i).z);
-            cinder::gl::drawSolidCircle(ball_positions_.at(i), 10, -1);
+            cinder::gl::drawSolidCircle(ball_positions_.at(i), radius_, -1);
         }
     }
 
@@ -214,3 +218,4 @@ namespace poolgame {
     }
 
 }  // namespace idealgas
+
