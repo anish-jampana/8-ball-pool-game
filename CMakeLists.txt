@@ -66,7 +66,8 @@ include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 list(APPEND SOURCE_FILES    src/pool_table.cc
         src/pool_game_app.cc
         src/ball.cpp
-        src/ball_generator.cpp)
+        src/ball_generator.cpp
+        src/start_screen.cpp)
 
 list(APPEND TEST_FILES tests/rename_this_test_file.cc)
 

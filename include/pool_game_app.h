@@ -6,7 +6,7 @@
 #include "cinder/gl/gl.h"
 #include "pool_game_app.h"
 #include "pool_table.h"
-//#include <Box2D/Box2D.h>
+#include "start_screen.h"
 
 
 namespace poolgame {
@@ -23,6 +23,7 @@ namespace poolgame {
         const int kMargin = 100;
 
     private:
+        StartScreen screen_ = StartScreen();
         PoolTable table_ = PoolTable();
     };
 
