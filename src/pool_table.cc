@@ -5,19 +5,22 @@
 namespace poolgame {
 
     PoolTable::PoolTable() {
-        friction_ = 0.01;
+        friction_ = 0.99;
         top_left_x_ = 100;
         top_left_y_ = 250;
         bottom_right_x_ = 900;
         bottom_right_y_ = 750;
         collection_of_balls_ = BallGenerator();
+
+        ball_shows_ = collection_of_balls_.GetShows();
         ball_positions_ = collection_of_balls_.GetPositions();
         ball_velocities_ = collection_of_balls_.GetVelocities();
         ball_colors_ = collection_of_balls_.GetColors();
         num_of_balls_ = collection_of_balls_.GetBalls().size();
-        cue_end_ = ball_positions_.at(0);
         holes_ = GenerateHoles();
         radius_ = collection_of_balls_.GetBalls().at(0).GetRadius();
+
+        cue_end_ = ball_positions_.at(0);
     }
 
     void PoolTable::Display() const {
@@ -31,12 +34,14 @@ namespace poolgame {
 
     void PoolTable::Update() {
         for (size_t i = 0; i < num_of_balls_; i++) {
-            //HoleCollision(i);
-            BallCollisions(i);
-            EdgeCollisions(i);
-            float time_step = 1;
-            ball_positions_.at(i) = ball_positions_.at(i) + (ball_velocities_.at(i) * time_step);
-            //Friction(i);
+            if (ball_shows_.at(i) == true) {
+                HoleCollision(i);
+                BallCollisions(i);
+                EdgeCollisions(i);
+                float time_step = 1;
+                ball_positions_.at(i) = ball_positions_.at(i) + (ball_velocities_.at(i) * time_step);
+                Friction(i);
+            }
         }
     }
 
@@ -60,34 +65,20 @@ namespace poolgame {
     void PoolTable::HoleCollision(int specific_particle) {
         for(size_t i = 0; i < holes_.size(); i++) {
             if (glm::distance(ball_positions_.at(specific_particle), holes_.at(i)) <= 25) {
-                ball_positions_.erase(ball_positions_.begin() + specific_particle);
-                num_of_balls_--;
+                ball_shows_.at(specific_particle) = false;
             }
         }
     }
 
     // make changes
     void PoolTable::Friction(int specific_particle) {
-        if (ball_velocities_.at(specific_particle).x > 0) {
-            ball_velocities_.at(specific_particle).x = ball_velocities_.at(specific_particle).x - friction_;
-            if (ball_velocities_.at(specific_particle).x < 0) {
-                ball_velocities_.at(specific_particle).x = 0;
-            }
-        } else if (ball_velocities_.at(specific_particle).x < 0) {
-            ball_velocities_.at(specific_particle).x = ball_velocities_.at(specific_particle).x + friction_;
-            if (ball_velocities_.at(specific_particle).x > 0) {
-                ball_velocities_.at(specific_particle).x = 0;
-            }
-        } else if (ball_velocities_.at(specific_particle).y > 0) {
-            ball_velocities_.at(specific_particle).y = ball_velocities_.at(specific_particle).y - friction_;
-            if (ball_velocities_.at(specific_particle).y < 0) {
-                ball_velocities_.at(specific_particle).y = 0;
-            }
-        } else if (ball_velocities_.at(specific_particle).y < 0) {
-            ball_velocities_.at(specific_particle).y = ball_velocities_.at(specific_particle).y + friction_;
-            if (ball_velocities_.at(specific_particle).y > 0) {
-                ball_velocities_.at(specific_particle).y = 0;
-            }
+        ball_velocities_.at(specific_particle).x = friction_ * ball_velocities_.at(specific_particle).x;
+        ball_velocities_.at(specific_particle).y = friction_ * ball_velocities_.at(specific_particle).y;
+        if (abs(ball_velocities_.at(specific_particle).x - 0) < 0.01) {
+            ball_velocities_.at(specific_particle).x = 0;
+        }
+        if (abs(ball_velocities_.at(specific_particle).y - 0) < 0.01) {
+            ball_velocities_.at(specific_particle).y = 0;
         }
     }
 
@@ -173,8 +164,10 @@ namespace poolgame {
 
     void PoolTable::DrawBalls() const {
         for (size_t i = 0; i < num_of_balls_; i++) {
-            cinder::gl::color(ball_colors_.at(i).x, ball_colors_.at(i).y, ball_colors_.at(i).z);
-            cinder::gl::drawSolidCircle(ball_positions_.at(i), radius_, -1);
+            if (ball_shows_.at(i) == true) {
+                cinder::gl::color(ball_colors_.at(i).x, ball_colors_.at(i).y, ball_colors_.at(i).z);
+                cinder::gl::drawSolidCircle(ball_positions_.at(i), radius_, -1);
+            }
         }
     }
 

@@ -21,6 +21,8 @@ namespace poolgame {
 
         int GetRadius();
 
+        bool GetShow();
+
     private:
 
         int ball_num_;
@@ -34,5 +36,7 @@ namespace poolgame {
         glm::vec2 ball_velocity_;
 
         int radius_;
+
+        bool show_;
     };
 }

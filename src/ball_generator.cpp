@@ -7,6 +7,7 @@ namespace poolgame {
         GeneratePositions();
         GenerateVelocities();
         GenerateBalls();
+        GenerateShows();
     }
 
     void BallGenerator::GenerateBalls() {
@@ -46,6 +47,12 @@ namespace poolgame {
         }
     }
 
+    void BallGenerator::GenerateShows() {
+        for (size_t i = 0; i < balls_.size(); i++) {
+            shows_.push_back(balls_.at(i).GetShow());
+        }
+    }
+
     std::vector<Ball> BallGenerator::GetBalls() {
         return balls_;
     }
@@ -64,6 +71,10 @@ namespace poolgame {
 
     std::vector<glm::vec2> BallGenerator::GetVelocities() {
         return velocities_;
+    }
+
+    std::vector<bool> BallGenerator::GetShows() {
+        return shows_;
     }
 }
 

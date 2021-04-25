@@ -8,6 +8,7 @@ namespace poolgame {
         ball_position_ = position;
         ball_velocity_ = velocity;
         radius_ = radius;
+        show_ = true;
     }
     int Ball::GetBallNumber() {
         return ball_num_;
@@ -28,6 +29,10 @@ namespace poolgame {
 
     int Ball::GetRadius() {
         return radius_;
+    }
+
+    bool Ball::GetShow() {
+        return show_;
     }
 }
 

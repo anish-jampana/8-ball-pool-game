@@ -51,6 +51,8 @@ namespace poolgame {
         int bottom_right_y_;
 
         BallGenerator collection_of_balls_;
+
+        std::vector<bool> ball_shows_;
         std::vector<glm::vec2> ball_positions_;
         std::vector<glm::vec2> ball_velocities_;
         std::vector<glm::vec3> ball_colors_;
