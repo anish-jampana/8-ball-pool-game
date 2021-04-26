@@ -1,5 +1,5 @@
-
 #include "start_screen.h"
+
 namespace poolgame {
     StartScreen::StartScreen() {
 
