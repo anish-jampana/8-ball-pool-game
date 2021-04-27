@@ -8,6 +8,7 @@ namespace poolgame {
         GenerateVelocities();
         GenerateBalls();
         GenerateShows();
+        GenerateStripes();
     }
 
     void BallGenerator::GenerateBalls() {
@@ -53,6 +54,12 @@ namespace poolgame {
         }
     }
 
+    void BallGenerator::GenerateStripes() {
+        for (size_t i = 0; i < balls_.size(); i++) {
+            striped_.push_back(balls_.at(i).GetStriped());
+        }
+    }
+
     std::vector<Ball> BallGenerator::GetBalls() {
         return balls_;
     }
@@ -76,5 +83,11 @@ namespace poolgame {
     std::vector<bool> BallGenerator::GetShows() {
         return shows_;
     }
+
+    std::vector<bool> BallGenerator::GetStripes() {
+        return striped_;
+    }
+
+
 }
 

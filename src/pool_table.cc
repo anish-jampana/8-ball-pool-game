@@ -5,13 +5,14 @@
 namespace poolgame {
 
     PoolTable::PoolTable() {
-        friction_ = 0.99;
+        friction_ = 0.994;
         top_left_x_ = 100;
         top_left_y_ = 250;
         bottom_right_x_ = 900;
         bottom_right_y_ = 750;
         collection_of_balls_ = BallGenerator();
 
+        ball_striped_ = collection_of_balls_.GetStripes();
         ball_shows_ = collection_of_balls_.GetShows();
         ball_positions_ = collection_of_balls_.GetPositions();
         ball_velocities_ = collection_of_balls_.GetVelocities();
@@ -21,6 +22,9 @@ namespace poolgame {
         radius_ = collection_of_balls_.GetBalls().at(0).GetRadius();
 
         cue_end_ = ball_positions_.at(0);
+
+        first_player_score_ = 0;
+        second_player_score_ = 0;
     }
 
     void PoolTable::Display() const {
@@ -30,6 +34,7 @@ namespace poolgame {
         if (Movement() == false) {
             DrawCue();
         }
+        DrawScoreBoard();
     }
 
     void PoolTable::Update() {
@@ -66,6 +71,11 @@ namespace poolgame {
         for(size_t i = 0; i < holes_.size(); i++) {
             if (glm::distance(ball_positions_.at(specific_particle), holes_.at(i)) <= 25) {
                 ball_shows_.at(specific_particle) = false;
+                if (ball_striped_.at(specific_particle) == true) {
+                    second_player_score_++;
+                } else {
+                    first_player_score_++;
+                }
             }
         }
     }
@@ -178,6 +188,19 @@ namespace poolgame {
         }
     }
 
+    void PoolTable::DrawScoreBoard() const {
+        cinder::gl::color(0, 0.38f, 0.11f);
+        cinder::gl::drawSolidRect(cinder::Rectf(250, 25, 750, 150));
+        cinder::gl::drawStringCentered("Pool Game", glm::vec2(500, 50), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 100));
+        cinder::gl::drawStringCentered("Player 1:", glm::vec2(460, 160), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 30));
+        cinder::gl::drawStringCentered("Player 2:", glm::vec2(460, 190), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 30));
+
+
+        cinder::gl::drawStringCentered(std::to_string(first_player_score_), glm::vec2(540, 160), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 30));
+        cinder::gl::drawStringCentered(std::to_string(second_player_score_), glm::vec2(540, 190), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 30));
+
+    }
+
     void PoolTable::MouseDrag(const glm::vec2& end) {
         cue_end_ = end;
     }
@@ -187,6 +210,16 @@ namespace poolgame {
             glm::vec2 velocity = (ball_positions_.at(0) - cue_end_) / (float) 50;
             ball_velocities_.at(0) = velocity;
             cue_end_ = ball_positions_.at(0);
+        }
+    }
+
+    void PoolTable::MouseDown(const glm::vec2 &pos) {
+        if (ball_shows_.at(0) == false) {
+            cinder::gl::color(ball_colors_.at(1).x, ball_colors_.at(1).y, ball_colors_.at(1).z);
+            std::cout<< pos;
+            ball_positions_.at(0) = pos;
+            ball_velocities_.at(0) = glm::vec2(0,0);
+            ball_shows_.at(0) = true;
         }
     }
 
