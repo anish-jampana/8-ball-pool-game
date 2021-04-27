@@ -220,6 +220,7 @@ namespace poolgame {
             ball_positions_.at(0) = pos;
             ball_velocities_.at(0) = glm::vec2(0,0);
             ball_shows_.at(0) = true;
+            cue_end_ = ball_positions_.at(0);
         }
     }
 
