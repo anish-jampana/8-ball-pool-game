@@ -28,13 +28,17 @@ namespace poolgame {
     }
 
     void PoolTable::Display() const {
-        DrawTable();
-        DrawHoles();
-        DrawBalls();
-        if (Movement() == false) {
-            DrawCue();
+        if (ball_shows_.at(8) == true) {
+            DrawTable();
+            DrawHoles();
+            DrawBalls();
+            if (Movement() == false) {
+                DrawCue();
+            }
+            DrawScoreBoard();
+        } else {
+            cinder::gl::drawStringCentered("YOU LOST", glm::vec2(500, 50), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 100));
         }
-        DrawScoreBoard();
     }
 
     void PoolTable::Update() {
