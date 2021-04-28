@@ -50,6 +50,9 @@ namespace poolgame {
                 float time_step = 1;
                 ball_positions_.at(i) = ball_positions_.at(i) + (ball_velocities_.at(i) * time_step);
                 Friction(i);
+                if (Movement() == true) {
+                    cue_end_ = ball_positions_.at(0);
+                }
             }
         }
     }
@@ -213,7 +216,6 @@ namespace poolgame {
         if (Movement() == false) {
             glm::vec2 velocity = (ball_positions_.at(0) - cue_end_) / (float) 50;
             ball_velocities_.at(0) = velocity;
-            cue_end_ = ball_positions_.at(0);
         }
     }
 
@@ -224,7 +226,6 @@ namespace poolgame {
             ball_positions_.at(0) = pos;
             ball_velocities_.at(0) = glm::vec2(0,0);
             ball_shows_.at(0) = true;
-            cue_end_ = ball_positions_.at(0);
         }
     }
 

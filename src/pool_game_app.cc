@@ -23,15 +23,21 @@ namespace poolgame {
         }
     }
     void PoolGameApp::update() {
-        table_.Update();
+        if (game_screen_status_ == true) {
+            table_.Update();
+        }
     }
 
     void PoolGameApp::mouseUp(ci::app::MouseEvent event) {
-        table_.MouseRelease();
+        if (game_screen_status_ == true) {
+            table_.MouseRelease();
+        }
     }
 
     void PoolGameApp::mouseDrag(ci::app::MouseEvent event) {
-        table_.MouseDrag(event.getPos());
+        if (game_screen_status_ == true) {
+            table_.MouseDrag(event.getPos());
+        }
     }
 
     void PoolGameApp::mouseDown(ci::app::MouseEvent event) {
