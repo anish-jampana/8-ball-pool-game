@@ -1,4 +1,3 @@
-
 #include <ball_generator.h>
 #include "pool_table.h"
 
@@ -33,11 +32,14 @@ namespace poolgame {
             DrawHoles();
             DrawBalls();
             if (Movement() == false) {
+                DrawCueIndicator();
                 DrawCue();
             }
             DrawScoreBoard();
-        } else {
+        } else if (ball_shows_.at(8) == false && AllBallsGone() == false) {
             cinder::gl::drawStringCentered("YOU LOST", glm::vec2(500, 50), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 100));
+        } else if (ball_shows_.at(8) == false && AllBallsGone() == true) {
+            cinder::gl::drawStringCentered("YOU WON", glm::vec2(500, 50), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 100));
         }
     }
 
@@ -57,6 +59,7 @@ namespace poolgame {
         }
     }
 
+    //Physics/Helper Methods
     std::vector<glm::vec2> PoolTable::GenerateHoles() {
         std::vector<glm::vec2> holes = {glm::vec2(120, 270), glm::vec2(880, 730), glm::vec2(120, 730),
                                         glm::vec2(880, 270), glm::vec2(500, 730), glm::vec2(500, 270)};
@@ -76,8 +79,12 @@ namespace poolgame {
 
     void PoolTable::HoleCollision(int specific_particle) {
         for(size_t i = 0; i < holes_.size(); i++) {
-            if (glm::distance(ball_positions_.at(specific_particle), holes_.at(i)) <= 25) {
+            if (glm::distance(ball_positions_.at(specific_particle), holes_.at(i)) <= 35) {
                 ball_shows_.at(specific_particle) = false;
+                if (specific_particle != 0) {
+                    ball_positions_.at(specific_particle) = glm::vec2(0, 0);
+                    ball_positions_.at(specific_particle) = glm::vec2(0, 0);
+                }
                 if (ball_striped_.at(specific_particle) == true) {
                     second_player_score_++;
                 } else {
@@ -87,7 +94,6 @@ namespace poolgame {
         }
     }
 
-    // make changes
     void PoolTable::Friction(int specific_particle) {
         ball_velocities_.at(specific_particle).x = friction_ * ball_velocities_.at(specific_particle).x;
         ball_velocities_.at(specific_particle).y = friction_ * ball_velocities_.at(specific_particle).y;
@@ -139,7 +145,6 @@ namespace poolgame {
             }
         }
         return collided_balls;
-
     }
 
     glm::vec2 PoolTable::CalculateCollidedVelocity(int first, int second) {
@@ -158,13 +163,26 @@ namespace poolgame {
     bool PoolTable::Movement() const {
         bool movement = false;
         for(size_t i = 0; i < num_of_balls_; i++) {
-            if (ball_velocities_.at(i) != glm::vec2(0,0)) {
-                movement = true;
+            if (ball_shows_.at(i) == true) {
+                if (ball_velocities_.at(i) != glm::vec2(0, 0)) {
+                    movement = true;
+                }
             }
         }
         return movement;
     }
 
+    bool PoolTable::AllBallsGone() const {
+        bool all_gone = true;
+        for (size_t i = 1; i < ball_shows_.size(); i++) {
+            if (ball_shows_.at(i) == true) {
+                all_gone = false;
+            }
+        }
+        return all_gone;
+    }
+
+    //Draw Functions
     void PoolTable::DrawTable() const {
         cinder::gl::color(0, 0.38f, 0.11f);
         cinder::gl::drawSolidRect(cinder::Rectf(top_left_x_, top_left_y_, bottom_right_x_, bottom_right_y_));
@@ -175,7 +193,7 @@ namespace poolgame {
     void PoolTable::DrawHoles() const {
         for (size_t i = 0; i < holes_.size(); i++) {
             cinder::gl::color(0,0,0);
-            cinder::gl::drawSolidCircle(holes_.at(i), 25, -1);
+            cinder::gl::drawSolidCircle(holes_.at(i), 35, -1);
         }
     }
 
@@ -208,6 +226,13 @@ namespace poolgame {
 
     }
 
+    void PoolTable::DrawCueIndicator() const {
+        cinder::gl::color(1, 0,0);
+        cinder::gl::drawStrokedCircle(ball_positions_.at(0), 10, -1);
+        cinder::gl::drawStrokedCircle(ball_positions_.at(0), 9, -1);
+    }
+
+    //Mouse Functions
     void PoolTable::MouseDrag(const glm::vec2& end) {
         cue_end_ = end;
     }
@@ -221,11 +246,13 @@ namespace poolgame {
 
     void PoolTable::MouseDown(const glm::vec2 &pos) {
         if (ball_shows_.at(0) == false) {
-            cinder::gl::color(ball_colors_.at(1).x, ball_colors_.at(1).y, ball_colors_.at(1).z);
-            std::cout<< pos;
-            ball_positions_.at(0) = pos;
-            ball_velocities_.at(0) = glm::vec2(0,0);
-            ball_shows_.at(0) = true;
+            if (pos.x >= top_left_x_ + radius_ && pos.x <= bottom_right_x_ - radius_ && pos.y >= top_left_y_ + radius_ && pos.y <= bottom_right_y_ - radius_) {
+                cue_end_ = pos;
+                ball_positions_.at(0) = pos;
+                ball_velocities_.at(0) = glm::vec2(0, 0);
+                ball_shows_.at(0) = true;
+                cinder::gl::color(ball_colors_.at(1).x, ball_colors_.at(1).y, ball_colors_.at(1).z);
+            }
         }
     }
 
@@ -250,4 +277,5 @@ namespace poolgame {
     }
 
 }  // namespace idealgas
+
 

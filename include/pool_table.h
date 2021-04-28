@@ -32,6 +32,7 @@ namespace poolgame {
         void DrawBalls() const;
         void DrawCue() const;
         void DrawScoreBoard() const;
+        void DrawCueIndicator() const;
 
         // collision functions
         void EdgeCollisions(int specific_particle);
@@ -42,6 +43,7 @@ namespace poolgame {
         glm::vec2 CalculateCollidedVelocity(int first, int second);
         void BallCollisions(int specific_particle);
         bool Movement() const;
+        bool AllBallsGone() const;
 
         int first_player_score_;
         int second_player_score_;
