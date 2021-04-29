@@ -205,6 +205,11 @@ namespace poolgame {
             if (ball_shows_.at(i) == true) {
                 cinder::gl::color(ball_colors_.at(i).x, ball_colors_.at(i).y, ball_colors_.at(i).z);
                 cinder::gl::drawSolidCircle(ball_positions_.at(i), radius_, -1);
+                if(i > 8) {
+                    cinder::gl::color(1,1,1);
+                    cinder::gl::drawStrokedCircle(ball_positions_.at(i), 10, -1);
+                    cinder::gl::drawStrokedCircle(ball_positions_.at(i), 9, -1);
+                }
             }
         }
     }
@@ -246,7 +251,12 @@ namespace poolgame {
 
     //Mouse Functions
     void PoolTable::MouseDrag(const glm::vec2& end) {
-        cue_end_ = end;
+        float d_x = ball_positions_.at(0).x - end.x;
+        float d_y = ball_positions_.at(0).y - end.y;
+        float distance = sqrt(d_x*d_x + d_y*d_y);
+        if (distance <= 400) {
+            cue_end_ = end;
+        }
     }
 
     void PoolTable::MouseRelease() {

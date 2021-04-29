@@ -35,7 +35,7 @@ namespace poolgame {
     }
 
     void PoolGameApp::mouseDrag(ci::app::MouseEvent event) {
-        if (game_screen_status_ == true) {
+        if (game_screen_status_ == true && start_screen_status_ == false) {
             table_.MouseDrag(event.getPos());
         }
     }
