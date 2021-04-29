@@ -17,7 +17,7 @@ TEST_CASE("Check Balls Moving By Velocity") {
         REQUIRE(single_ball_position == glm::vec2(700, 500));
     }
 
-    SECTION("Moving Right") {
+    SECTION("Moving Right - With Friction") {
         std::vector<glm::vec2> single_ball_position;
         std::vector<glm::vec2> single_ball_velocity;
         single_ball_position.push_back(glm::vec2(700, 500));
@@ -28,7 +28,7 @@ TEST_CASE("Check Balls Moving By Velocity") {
         table.SetNumOfBalls(1);
         table.Update();
         REQUIRE(table.GetPositions().at(0) == glm::vec2(750, 500));
-        REQUIRE(table.GetVelocities().at(0) == glm::vec2(50, 0));
+        REQUIRE(table.GetVelocities().at(0) == glm::vec2(49.700, 0));
     }
 
     SECTION("Moving Left") {
@@ -42,7 +42,7 @@ TEST_CASE("Check Balls Moving By Velocity") {
         table.SetNumOfBalls(1);
         table.Update();
         REQUIRE(table.GetPositions().at(0) == glm::vec2(650, 500));
-        REQUIRE(table.GetVelocities().at(0) == glm::vec2(-50, 0));
+        REQUIRE(table.GetVelocities().at(0) == glm::vec2(-49.700, 0));
     }
 
     SECTION("Moving Up") {
@@ -56,7 +56,7 @@ TEST_CASE("Check Balls Moving By Velocity") {
         table.SetNumOfBalls(1);
         table.Update();
         REQUIRE(table.GetPositions().at(0) == glm::vec2(700, 450));
-        REQUIRE(table.GetVelocities().at(0) == glm::vec2(0, -50));
+        REQUIRE(table.GetVelocities().at(0) == glm::vec2(0, -49.700));
     }
 
     SECTION("Moving Down") {
@@ -70,7 +70,7 @@ TEST_CASE("Check Balls Moving By Velocity") {
         table.SetNumOfBalls(1);
         table.Update();
         REQUIRE(table.GetPositions().at(0) == glm::vec2(700, 550));
-        REQUIRE(table.GetVelocities().at(0) == glm::vec2(0, 50));
+        REQUIRE(table.GetVelocities().at(0) == glm::vec2(0, 49.700));
     }
 
     SECTION("Moving Diagonally") {
@@ -84,7 +84,7 @@ TEST_CASE("Check Balls Moving By Velocity") {
         table.SetNumOfBalls(1);
         table.Update();
         REQUIRE(table.GetPositions().at(0) == glm::vec2(750, 550));
-        REQUIRE(table.GetVelocities().at(0) == glm::vec2(50, 50));
+        REQUIRE(table.GetVelocities().at(0) == glm::vec2(49.700, 49.700));
     }
 }
 
@@ -99,7 +99,7 @@ TEST_CASE("Check Balls Bouncing on Edges") {
         table.SetBallVelocities(single_ball_velocity);
         table.SetNumOfBalls(1);
         table.Update();
-        REQUIRE(table.GetVelocities().at(0) == glm::vec2(-50, 0));
+        REQUIRE(table.GetVelocities().at(0) == glm::vec2(-49.700, 0));
     }
     SECTION("Check Ball Bounces on Left Edge") {
         std::vector<glm::vec2> single_ball_position;
@@ -111,7 +111,7 @@ TEST_CASE("Check Balls Bouncing on Edges") {
         table.SetBallVelocities(single_ball_velocity);
         table.SetNumOfBalls(1);
         table.Update();
-        REQUIRE(table.GetVelocities().at(0) == glm::vec2(50, 0));
+        REQUIRE(table.GetVelocities().at(0) == glm::vec2(49.700, 0));
     }
 
     SECTION("Check Ball Bounces on Bottom Edge") {
@@ -124,7 +124,7 @@ TEST_CASE("Check Balls Bouncing on Edges") {
         table.SetBallVelocities(single_ball_velocity);
         table.SetNumOfBalls(1);
         table.Update();
-        REQUIRE(table.GetVelocities().at(0) == glm::vec2(0, -50));
+        REQUIRE(table.GetVelocities().at(0) == glm::vec2(0, -49.700));
     }
 
     SECTION("Check Ball Bounces on Top Edge") {
@@ -137,7 +137,7 @@ TEST_CASE("Check Balls Bouncing on Edges") {
         table.SetBallVelocities(single_ball_velocity);
         table.SetNumOfBalls(1);
         table.Update();
-        REQUIRE(table.GetVelocities().at(0) == glm::vec2(0, 50));
+        REQUIRE(table.GetVelocities().at(0) == glm::vec2(0, 49.700));
     }
 }
 
@@ -156,8 +156,10 @@ TEST_CASE("Collision Between Balls Moving Towards Each Other") {
         table.SetNumOfBalls(2);
         table.Update();
         table.Update();
-        REQUIRE(table.GetVelocities().at(0) == glm::vec2(-50, 0));
-        REQUIRE(table.GetVelocities().at(1) == glm::vec2(-50, 0));
+        REQUIRE(abs(table.GetVelocities().at(0).x - (-29.64108)) < 0.01);
+        REQUIRE(table.GetVelocities().at(0).y == 0);
+        REQUIRE(abs(table.GetVelocities().at(1).x - 49.4018f) < 0.01);
+        REQUIRE(table.GetVelocities().at(1).y == 0);
 
     }
 }

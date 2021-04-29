@@ -9,8 +9,8 @@ namespace poolgame {
         top_left_y_ = 250;
         bottom_right_x_ = 900;
         bottom_right_y_ = 750;
-        collection_of_balls_ = BallGenerator();
 
+        collection_of_balls_ = BallGenerator();
         ball_striped_ = collection_of_balls_.GetStripes();
         ball_shows_ = collection_of_balls_.GetShows();
         ball_positions_ = collection_of_balls_.GetPositions();
@@ -19,7 +19,6 @@ namespace poolgame {
         num_of_balls_ = collection_of_balls_.GetBalls().size();
         holes_ = GenerateHoles();
         radius_ = collection_of_balls_.GetBalls().at(0).GetRadius();
-
         cue_end_ = ball_positions_.at(0);
 
         first_player_score_ = 0;
@@ -88,7 +87,9 @@ namespace poolgame {
                 if (ball_striped_.at(specific_particle) == true) {
                     second_player_score_++;
                 } else {
-                    first_player_score_++;
+                    if (specific_particle != 0) {
+                        first_player_score_++;
+                    }
                 }
             }
         }
@@ -182,6 +183,7 @@ namespace poolgame {
         return all_gone;
     }
 
+
     //Draw Functions
     void PoolTable::DrawTable() const {
         cinder::gl::color(0, 0.38f, 0.11f);
@@ -227,10 +229,13 @@ namespace poolgame {
     }
 
     void PoolTable::DrawCueIndicator() const {
-        cinder::gl::color(1, 0,0);
-        cinder::gl::drawStrokedCircle(ball_positions_.at(0), 10, -1);
-        cinder::gl::drawStrokedCircle(ball_positions_.at(0), 9, -1);
+        if (ball_shows_.at(0) == true) {
+            cinder::gl::color(1, 0, 0);
+            cinder::gl::drawStrokedCircle(ball_positions_.at(0), 10, -1);
+            cinder::gl::drawStrokedCircle(ball_positions_.at(0), 9, -1);
+        }
     }
+
 
     //Mouse Functions
     void PoolTable::MouseDrag(const glm::vec2& end) {
@@ -256,6 +261,8 @@ namespace poolgame {
         }
     }
 
+
+    //Getters and Setters
     std::vector<glm::vec2> PoolTable::GetPositions() {
         return ball_positions_;
     }
