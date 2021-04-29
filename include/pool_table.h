@@ -33,6 +33,7 @@ namespace poolgame {
         void DrawCue() const;
         void DrawScoreBoard() const;
         void DrawCueIndicator() const;
+        void DrawBackButton() const;
 
         // collision functions
         void EdgeCollisions(int specific_particle);

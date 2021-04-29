@@ -35,6 +35,7 @@ namespace poolgame {
                 DrawCue();
             }
             DrawScoreBoard();
+            DrawBackButton();
         } else if (ball_shows_.at(8) == false && AllBallsGone() == false) {
             cinder::gl::drawStringCentered("YOU LOST", glm::vec2(500, 50), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 100));
         } else if (ball_shows_.at(8) == false && AllBallsGone() == true) {
@@ -234,6 +235,12 @@ namespace poolgame {
             cinder::gl::drawStrokedCircle(ball_positions_.at(0), 10, -1);
             cinder::gl::drawStrokedCircle(ball_positions_.at(0), 9, -1);
         }
+    }
+
+    void PoolTable::DrawBackButton() const {
+        cinder::gl::color(1, 1, 1);
+        cinder::gl::drawSolidRect(cinder::Rectf(400, 780, 600, 830));
+        cinder::gl::drawStringCentered("Back", glm::vec2(500, 795), cinder::ColorA(0, 0, 0, 1), ci::Font("georgia", 30));
     }
 
 

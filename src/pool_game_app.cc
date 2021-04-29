@@ -64,6 +64,12 @@ namespace poolgame {
         }
         if (game_screen_status_ == true) {
             table_.MouseDown(event.getPos());
+            if (event.getPos().x >= 400 && event.getPos().x <= 600 && event.getPos().y >= 780 &&
+                event.getPos().y <= 830) {
+                start_screen_status_ = true;
+                instructions_screen_status_ = false;
+                game_screen_status_ = false;
+            }
         }
     }
 
