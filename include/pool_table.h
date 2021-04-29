@@ -45,7 +45,8 @@ namespace poolgame {
         glm::vec2 CalculateCollidedVelocity(int first, int second);
         void BallCollisions(int specific_particle);
         bool Movement() const;
-        bool AllBallsGone() const;
+        bool AllBallsGoneSolid() const;
+        bool AllBallsGoneStriped() const;
 
         int first_player_score_;
         int second_player_score_;

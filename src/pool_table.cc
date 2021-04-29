@@ -37,9 +37,9 @@ namespace poolgame {
             DrawScoreBoard();
             DrawBackButton();
             DrawKey();
-        } else if (ball_shows_.at(8) == false && AllBallsGone() == false) {
+        } else if (ball_shows_.at(8) == false && AllBallsGoneSolid() == false && AllBallsGoneStriped() == false) {
             cinder::gl::drawStringCentered("YOU LOST", glm::vec2(500, 50), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 100));
-        } else if (ball_shows_.at(8) == false && AllBallsGone() == true) {
+        } else if ((ball_shows_.at(8) == false && AllBallsGoneSolid() == true) || (ball_shows_.at(8) == false && AllBallsGoneStriped() == true)) {
             cinder::gl::drawStringCentered("YOU WON", glm::vec2(500, 50), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 100));
         }
     }
@@ -175,9 +175,19 @@ namespace poolgame {
         return movement;
     }
 
-    bool PoolTable::AllBallsGone() const {
+    bool PoolTable::AllBallsGoneSolid() const {
         bool all_gone = true;
-        for (size_t i = 1; i < ball_shows_.size(); i++) {
+        for (size_t i = 1; i < 8; i++) {
+            if (ball_shows_.at(i) == true) {
+                all_gone = false;
+            }
+        }
+        return all_gone;
+    }
+
+    bool PoolTable::AllBallsGoneStriped() const {
+        bool all_gone = true;
+        for (size_t i = 9; i < 16; i++) {
             if (ball_shows_.at(i) == true) {
                 all_gone = false;
             }
@@ -206,6 +216,7 @@ namespace poolgame {
             if (ball_shows_.at(i) == true) {
                 cinder::gl::color(ball_colors_.at(i).x, ball_colors_.at(i).y, ball_colors_.at(i).z);
                 cinder::gl::drawSolidCircle(ball_positions_.at(i), radius_, -1);
+                //cinder::gl::drawStringCentered(std::to_string(i), glm::vec2(ball_positions_.at(i).x, ball_positions_.at(i).y - 5), cinder::ColorA(1,1,1,1), ci::Font("georgia", 10));
                 if(i > 8) {
                     cinder::gl::color(1,1,1);
                     cinder::gl::drawStrokedCircle(ball_positions_.at(i), 10, -1);
