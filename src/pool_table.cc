@@ -36,6 +36,7 @@ namespace poolgame {
             }
             DrawScoreBoard();
             DrawBackButton();
+            DrawKey();
         } else if (ball_shows_.at(8) == false && AllBallsGone() == false) {
             cinder::gl::drawStringCentered("YOU LOST", glm::vec2(500, 50), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 100));
         } else if (ball_shows_.at(8) == false && AllBallsGone() == true) {
@@ -246,6 +247,23 @@ namespace poolgame {
         cinder::gl::color(1, 1, 1);
         cinder::gl::drawSolidRect(cinder::Rectf(400, 780, 600, 830));
         cinder::gl::drawStringCentered("Back", glm::vec2(500, 795), cinder::ColorA(0, 0, 0, 1), ci::Font("georgia", 30));
+    }
+
+    void PoolTable::DrawKey() const {
+        // striped
+        cinder::gl::color(1, 0, 0);
+        cinder::gl::drawSolidCircle(glm::vec2(800, 100), radius_, -1);
+        cinder::gl::color(1, 1, 1);
+        cinder::gl::drawStrokedCircle(glm::vec2(800, 100), 10, -1);
+        cinder::gl::drawStrokedCircle(glm::vec2(800, 100), 9, -1);
+
+        // solid
+        cinder::gl::color(1, 0, 0);
+        cinder::gl::drawSolidCircle(glm::vec2(800, 130), radius_, -1);
+
+        // labels
+        cinder::gl::drawStringCentered("Striped", glm::vec2(850, 90), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 20));
+        cinder::gl::drawStringCentered("Solid", glm::vec2(850, 120), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 20));
     }
 
 
