@@ -1,4 +1,3 @@
-// contains similarities in implementation to my ideal gas MP
 #pragma once
 
 #include "cinder/gl/gl.h"
@@ -16,6 +15,7 @@ namespace poolgame {
         void Update();
         void MouseDrag(const glm::vec2& length);
         void MouseRelease();
+        void MouseDown(const glm::vec2& pos);
 
         std::vector<glm::vec2> GetPositions();
         std::vector<glm::vec2> GetVelocities();
@@ -31,6 +31,9 @@ namespace poolgame {
         void DrawHoles() const;
         void DrawBalls() const;
         void DrawCue() const;
+        void DrawScoreBoard() const;
+        void DrawCueIndicator() const;
+        void DrawBackButton() const;
 
         // collision functions
         void EdgeCollisions(int specific_particle);
@@ -41,6 +44,10 @@ namespace poolgame {
         glm::vec2 CalculateCollidedVelocity(int first, int second);
         void BallCollisions(int specific_particle);
         bool Movement() const;
+        bool AllBallsGone() const;
+
+        int first_player_score_;
+        int second_player_score_;
 
         glm::vec2 cue_end_;
         float friction_;
@@ -52,10 +59,14 @@ namespace poolgame {
         int bottom_right_y_;
 
         BallGenerator collection_of_balls_;
+
+        std::vector<bool> ball_striped_;
+        std::vector<bool> ball_shows_;
         std::vector<glm::vec2> ball_positions_;
         std::vector<glm::vec2> ball_velocities_;
         std::vector<glm::vec3> ball_colors_;
         int num_of_balls_;
+        int radius_;
     };
 
 }  // namespace idealgas

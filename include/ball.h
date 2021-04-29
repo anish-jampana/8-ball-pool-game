@@ -1,4 +1,3 @@
-// contains similarities in implementation to my ideal gas MP
 #pragma once
 #include "cinder/gl/gl.h"
 
@@ -12,7 +11,7 @@ namespace poolgame {
 
         int GetBallNumber();
 
-        glm::vec3 GetBallColor();
+        glm::vec3 GetBallColor() const;
 
         bool GetStriped();
 
@@ -21,6 +20,8 @@ namespace poolgame {
         glm::vec2 GetBallVelocity();
 
         int GetRadius();
+
+        bool GetShow();
 
     private:
 
@@ -35,5 +36,7 @@ namespace poolgame {
         glm::vec2 ball_velocity_;
 
         int radius_;
+
+        bool show_;
     };
 }
