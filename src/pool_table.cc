@@ -84,7 +84,6 @@ namespace poolgame {
                 ball_shows_.at(specific_particle) = false;
                 if (specific_particle != 0) {
                     ball_positions_.at(specific_particle) = glm::vec2(0, 0);
-                    ball_positions_.at(specific_particle) = glm::vec2(0, 0);
                 }
                 if (ball_striped_.at(specific_particle) == true) {
                     second_player_score_++;
@@ -142,8 +141,10 @@ namespace poolgame {
                 if (glm::distance(ball_positions_.at(i), ball_positions_.at(j)) <=
                     (contact_distance) &&
                     i != j) {
-                    collided_balls.push_back(i);
-                    collided_balls.push_back(j);
+                    if (ball_shows_.at(i) == true && ball_shows_.at(j) == true) {
+                        collided_balls.push_back(i);
+                        collided_balls.push_back(j);
+                    }
                 }
             }
         }
@@ -216,8 +217,7 @@ namespace poolgame {
             if (ball_shows_.at(i) == true) {
                 cinder::gl::color(ball_colors_.at(i).x, ball_colors_.at(i).y, ball_colors_.at(i).z);
                 cinder::gl::drawSolidCircle(ball_positions_.at(i), radius_, -1);
-                //cinder::gl::drawStringCentered(std::to_string(i), glm::vec2(ball_positions_.at(i).x, ball_positions_.at(i).y - 5), cinder::ColorA(1,1,1,1), ci::Font("georgia", 10));
-                if(i > 8) {
+                if (i > 8) {
                     cinder::gl::color(1,1,1);
                     cinder::gl::drawStrokedCircle(ball_positions_.at(i), 10, -1);
                     cinder::gl::drawStrokedCircle(ball_positions_.at(i), 9, -1);
