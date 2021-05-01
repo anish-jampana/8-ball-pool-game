@@ -237,8 +237,8 @@ namespace poolgame {
         cinder::gl::color(0, 0.38f, 0.11f);
         cinder::gl::drawSolidRect(cinder::Rectf(250, 25, 750, 150));
         cinder::gl::drawStringCentered("Pool Game", glm::vec2(500, 50), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 100));
-        cinder::gl::drawStringCentered("Player 1:", glm::vec2(460, 160), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 30));
-        cinder::gl::drawStringCentered("Player 2:", glm::vec2(460, 190), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 30));
+        cinder::gl::drawStringCentered("Solid:", glm::vec2(460, 160), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 30));
+        cinder::gl::drawStringCentered("Striped:", glm::vec2(460, 190), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 30));
 
 
         cinder::gl::drawStringCentered(std::to_string(first_player_score_), glm::vec2(540, 160), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 30));

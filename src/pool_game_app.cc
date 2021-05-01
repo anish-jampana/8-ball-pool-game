@@ -21,9 +21,12 @@ namespace poolgame {
             ci::gl::clear(background_color);
             instructions_.Display();
         }
+        if (settings_screen_status_ == true) {
+            settings_.Display();
+        }
     }
     void PoolGameApp::update() {
-        if (game_screen_status_ == true) {
+        if (game_screen_status_ == true && start_screen_status_ == false) {
             table_.Update();
         }
     }
@@ -44,14 +47,16 @@ namespace poolgame {
         if (start_screen_status_ == true) {
             if (event.getPos().x >= 400 && event.getPos().x <= 600 && event.getPos().y >= 650 &&
                 event.getPos().y <= 700) {
-                game_screen_status_ = true;
+                settings_screen_status_ = true;
                 start_screen_status_ = false;
                 instructions_screen_status_ = false;
+                game_screen_status_ = false;
             } else if (event.getPos().x >= 400 && event.getPos().x <= 600 && event.getPos().y >= 725 &&
                        event.getPos().y <= 775) {
                 instructions_screen_status_ = true;
                 game_screen_status_ = false;
                 start_screen_status_ = false;
+                settings_screen_status_ = false;
             }
         }
         if (instructions_screen_status_ == true) {

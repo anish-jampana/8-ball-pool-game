@@ -14,7 +14,21 @@ namespace poolgame {
         std::vector<glm::vec3> GetColors();
         std::vector<bool> GetShows();
         std::vector<bool> GetStripes();
+
+//        void DrawBalls() const;
+//        void UpdateBalls();
     private:
+//        void EdgeCollisions(int specific_particle);
+//        void HoleCollision(int specific_particle);
+//        void Friction(int specific_particle);
+//        bool CheckBallsMovingTowardsEachOther(int first, int second);
+//        std::vector<int> FindCollidedBalls();
+//        glm::vec2 CalculateCollidedVelocity(int first, int second);
+//        void BallCollisions(int specific_particle);
+//        bool Movement() const;
+//        bool AllBallsGoneSolid() const;
+//        bool AllBallsGoneStriped() const;
+
         void GenerateBalls();
         void GenerateColors();
         void GeneratePositions();
@@ -27,5 +41,6 @@ namespace poolgame {
         std::vector<glm::vec2> velocities_;
         std::vector<bool> shows_;
         std::vector<bool> striped_;
+        int radius_;
     };
 }

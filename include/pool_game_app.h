@@ -8,6 +8,7 @@
 #include "pool_table.h"
 #include "start_screen.h"
 #include "instructions.h"
+#include "settings_screen.h"
 
 
 namespace poolgame {
@@ -28,9 +29,11 @@ namespace poolgame {
         StartScreen screen_ = StartScreen();
         PoolTable table_ = PoolTable();
         Instructions instructions_ = Instructions();
+        SettingsScreen settings_ = SettingsScreen();
         bool start_screen_status_;
         bool game_screen_status_;
         bool instructions_screen_status_;
+        bool settings_screen_status_;
     };
 
 }  // namespace idealgas
