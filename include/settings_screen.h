@@ -8,6 +8,7 @@ namespace poolgame {
     public:
         SettingsScreen();
         void Display() const;
+        void IncrementMouseDown(const glm::vec2 &pos);
     private:
         void DrawWindow() const;
         void DrawStartBackButtons() const;
@@ -15,7 +16,7 @@ namespace poolgame {
         void DrawText() const;
         void DrawArrowButtons() const;
 
-//        int setting_radius_;
-//        float setting_friction_;
+        int increment_radius_;
+        float increment_friction_;
     };
 }

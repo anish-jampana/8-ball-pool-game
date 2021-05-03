@@ -2,7 +2,8 @@
 
 namespace poolgame {
     SettingsScreen::SettingsScreen() {
-
+        increment_radius_ = 5;
+        increment_friction_ = 0.99;
     }
     void SettingsScreen::Display() const {
         DrawWindow();
@@ -53,6 +54,38 @@ namespace poolgame {
 
         cinder::gl::drawStringCentered("Ball Radius", glm::vec2(500, 350), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 30));
         cinder::gl::drawStringCentered("Friction", glm::vec2(500, 500), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 30));
+
+        cinder::gl::drawStringCentered(std::to_string(increment_radius_), glm::vec2(500, 400), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 30));
+        cinder::gl::drawStringCentered(std::to_string(increment_friction_), glm::vec2(500, 550), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 30));
+
+    }
+    
+    void SettingsScreen::IncrementMouseDown(const glm::vec2 &pos) {
+        if (pos.x >= 380 && pos.x <= 420 && pos.y >= 400 &&
+                 pos.y <= 440) {
+            std::cout<<"left button for radius working!";
+            if (increment_radius_ > 1) {
+                increment_radius_--;
+            }
+        } else if (pos.x >= 380 && pos.x <= 420 && pos.y >= 550 &&
+                   pos.y <= 590) {
+            std::cout<<"left button for friction working!";
+            if (increment_friction_ > 0.85) {
+                increment_friction_ -= 0.001;
+            }
+        } else if (pos.x >= 580 && pos.x <= 620 && pos.y >= 400 &&
+                   pos.y <= 440) {
+            std::cout<<"right button for radius working!";
+            if (increment_radius_ < 10) {
+                increment_radius_++;
+            }
+        } else if (pos.x >= 580 && pos.x <= 620 && pos.y >= 550 &&
+                   pos.y <= 590) {
+            std::cout<<"right button for friction working!";
+            if (increment_friction_ < 1) {
+                increment_friction_ += 0.001;
+            }
+        }
     }
 }
 

@@ -70,6 +70,7 @@ namespace poolgame {
             }
         }
         if (game_state == GameState::SETTING_SCREEN) {
+            settings_.IncrementMouseDown(event.getPos());
             if (event.getPos().x >= 400 && event.getPos().x <= 600 && event.getPos().y >= 675 &&
                 event.getPos().y <= 725) {
                 game_state = GameState::GAME_SCREEN;
