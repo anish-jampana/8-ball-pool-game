@@ -24,6 +24,7 @@ namespace poolgame {
         void SetNumOfBalls(int num);
         void SetRadius(int num);
         void SetFriction(float num);
+
     private:
 
         std::vector<glm::vec2> GenerateHoles();
@@ -37,6 +38,7 @@ namespace poolgame {
         void DrawCueIndicator() const;
         void DrawBackButton() const;
         void DrawKey() const;
+        void DrawTurns() const;
 
         // collision functions
         void EdgeCollisions(int specific_particle);
@@ -71,6 +73,7 @@ namespace poolgame {
         std::vector<glm::vec3> ball_colors_;
         int num_of_balls_;
         int radius_;
+        bool solid_turn_;
     };
 
 }  // namespace idealgas

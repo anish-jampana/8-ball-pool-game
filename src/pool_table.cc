@@ -23,6 +23,7 @@ namespace poolgame {
 
         first_player_score_ = 0;
         second_player_score_ = 0;
+        solid_turn_ = true;
     }
 
     void PoolTable::Display() const {
@@ -37,6 +38,7 @@ namespace poolgame {
             DrawScoreBoard();
             DrawBackButton();
             DrawKey();
+            DrawTurns();
         } else if (ball_shows_.at(8) == false && AllBallsGoneSolid() == false && AllBallsGoneStriped() == false) {
             cinder::gl::drawStringCentered("YOU LOST", glm::vec2(500, 50), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 100));
         } else if ((ball_shows_.at(8) == false && AllBallsGoneSolid() == true) || (ball_shows_.at(8) == false && AllBallsGoneStriped() == true)) {
@@ -170,6 +172,7 @@ namespace poolgame {
             if (ball_shows_.at(i) == true) {
                 if (ball_velocities_.at(i) != glm::vec2(0, 0)) {
                     movement = true;
+                    break;
                 }
             }
         }
@@ -219,8 +222,8 @@ namespace poolgame {
                 cinder::gl::drawSolidCircle(ball_positions_.at(i), radius_, -1);
                 if (i > 8) {
                     cinder::gl::color(1,1,1);
-                    cinder::gl::drawStrokedCircle(ball_positions_.at(i), 10, -1);
-                    cinder::gl::drawStrokedCircle(ball_positions_.at(i), 9, -1);
+                    cinder::gl::drawStrokedCircle(ball_positions_.at(i), radius_, -1);
+                    cinder::gl::drawStrokedCircle(ball_positions_.at(i), radius_ - 1, -1);
                 }
             }
         }
@@ -277,6 +280,35 @@ namespace poolgame {
         cinder::gl::drawStringCentered("Solid", glm::vec2(850, 120), cinder::ColorA(1, 1, 1, 1), ci::Font("georgia", 20));
     }
 
+    void PoolTable::DrawTurns() const {
+        if (solid_turn_ == true) {
+//            cinder::gl::color(1, 1, 1, 1);
+//            cinder::gl::Texture2dRef solid = ci::gl::Texture2d::create(
+//                    cinder::loadImage("/Users/anishjampana/Desktop/solidball.png"));
+//            cinder::Rectf rect(200, 850, 500, 1000);
+//            cinder::gl::draw(solid, rect);
+
+            cinder::gl::color(1, 1, 1, 1);
+            cinder::gl::Texture2dRef solid_text = ci::gl::Texture2d::create(
+                    cinder::loadImage("/Users/anishjampana/Desktop/solid_text.png"));
+            cinder::Rectf rect2(500, 900, 700, 950);
+            cinder::gl::draw(solid_text, rect2);
+        } else {
+//            cinder::gl::color(1, 1, 1, 1);
+//            cinder::gl::Texture2dRef striped = ci::gl::Texture2d::create(
+//                    cinder::loadImage("/Users/anishjampana/Desktop/stripedball.png"));
+//            cinder::Rectf rect3(500, 850, 800, 1000);
+//            cinder::gl::draw(striped, rect3);
+
+            cinder::gl::color(1, 1, 1, 1);
+            cinder::gl::Texture2dRef striped_text = ci::gl::Texture2d::create(
+                    cinder::loadImage("/Users/anishjampana/Desktop/striped_text.png"));
+            cinder::Rectf rect4(300, 900, 500, 950);
+            cinder::gl::draw(striped_text, rect4);
+        }
+
+    }
+
 
     //Mouse Functions
     void PoolTable::MouseDrag(const glm::vec2& end) {
@@ -290,6 +322,11 @@ namespace poolgame {
 
     void PoolTable::MouseRelease() {
         if (Movement() == false) {
+            if (solid_turn_ == true) {
+                solid_turn_ = false;
+            } else {
+                solid_turn_ = true;
+            }
             glm::vec2 velocity = (ball_positions_.at(0) - cue_end_) / (float) 50;
             ball_velocities_.at(0) = velocity;
         }

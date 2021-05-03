@@ -87,5 +87,12 @@ namespace poolgame {
             }
         }
     }
+
+    int SettingsScreen::GetIncrementRadius() {
+        return increment_radius_;
+    }
+    float SettingsScreen::GetIncrementFriction() {
+        return increment_friction_;
+    }
 }
 

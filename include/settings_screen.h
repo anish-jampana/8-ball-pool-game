@@ -9,6 +9,8 @@ namespace poolgame {
         SettingsScreen();
         void Display() const;
         void IncrementMouseDown(const glm::vec2 &pos);
+        int GetIncrementRadius();
+        float GetIncrementFriction();
     private:
         void DrawWindow() const;
         void DrawStartBackButtons() const;

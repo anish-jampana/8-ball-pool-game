@@ -49,7 +49,6 @@ namespace poolgame {
         if (game_state == GameState::START_SCREEN) {
             if (event.getPos().x >= 400 && event.getPos().x <= 600 && event.getPos().y >= 650 &&
                 event.getPos().y <= 700) {
-                std::cout<< "Start";
                 game_state = GameState::SETTING_SCREEN;
             } else if (event.getPos().x >= 400 && event.getPos().x <= 600 && event.getPos().y >= 725 &&
                        event.getPos().y <= 775) {
@@ -73,6 +72,8 @@ namespace poolgame {
             settings_.IncrementMouseDown(event.getPos());
             if (event.getPos().x >= 400 && event.getPos().x <= 600 && event.getPos().y >= 675 &&
                 event.getPos().y <= 725) {
+                table_.SetRadius(settings_.GetIncrementRadius());
+                table_.SetFriction(settings_.GetIncrementFriction());
                 game_state = GameState::GAME_SCREEN;
             } else if (event.getPos().x >= 400 && event.getPos().x <= 600 && event.getPos().y >= 735 &&
                 event.getPos().y <= 785) {
