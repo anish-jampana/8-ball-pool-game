@@ -23,6 +23,8 @@ namespace poolgame {
 
         bool GetShow();
 
+        void SetRadius(int num);
+
     private:
 
         int ball_num_;

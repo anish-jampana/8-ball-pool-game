@@ -22,6 +22,8 @@ namespace poolgame {
         void SetBallPositions(std::vector<glm::vec2> positions);
         void SetBallVelocities(std::vector<glm::vec2> velocities);
         void SetNumOfBalls(int num);
+        void SetRadius(int num);
+        void SetFriction(float num);
     private:
 
         std::vector<glm::vec2> GenerateHoles();

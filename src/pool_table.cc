@@ -329,4 +329,14 @@ namespace poolgame {
         num_of_balls_ = num;
     }
 
+    void PoolTable::SetRadius(int num) {
+        radius_ = num;
+        for (size_t i = 0; i < num_of_balls_; i++) {
+            collection_of_balls_.GetBalls().at(0).SetRadius(num);
+        }
+    }
+
+    void PoolTable::SetFriction(float num) {
+        friction_ = num;
+    }
 }  // namespace idealgas

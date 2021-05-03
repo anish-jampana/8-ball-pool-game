@@ -10,7 +10,12 @@ namespace poolgame {
         void Display() const;
     private:
         void DrawWindow() const;
-        void DrawButton() const;
+        void DrawStartBackButtons() const;
         void DrawImages() const;
+        void DrawText() const;
+        void DrawArrowButtons() const;
+
+//        int setting_radius_;
+//        float setting_friction_;
     };
 }

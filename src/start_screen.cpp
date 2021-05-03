@@ -5,9 +5,18 @@ namespace poolgame {
 
     }
     void StartScreen::Display() const {
+        DrawBackground();
         DrawTitle();
         DrawStartButton();
         DrawInstructionsButton();
+    }
+
+    void StartScreen::DrawBackground() const {
+            cinder::gl::color(1, 1, 1, 1);
+            cinder::gl::Texture2dRef my_image = ci::gl::Texture2d::create(cinder::loadImage("/Users/anishjampana/Downloads/background.jpeg"));
+            cinder::Rectf rect(0, 0, 1000, 1000);
+            cinder::gl::draw(my_image, rect);
+
     }
 
     void StartScreen::DrawTitle() const {

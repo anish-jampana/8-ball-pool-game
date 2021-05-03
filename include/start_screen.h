@@ -12,5 +12,6 @@ namespace poolgame {
         void DrawTitle() const;
         void DrawStartButton() const;
         void DrawInstructionsButton() const;
+        void DrawBackground() const;
     };
 }

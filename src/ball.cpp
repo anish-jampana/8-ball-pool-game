@@ -34,5 +34,9 @@ namespace poolgame {
     bool Ball::GetShow() {
         return show_;
     }
+
+    void Ball::SetRadius(int num) {
+        radius_ = num;
+    }
 }
 
