@@ -13,6 +13,13 @@
 
 namespace poolgame {
 
+    enum GameState {
+        START_SCREEN,
+        GAME_SCREEN,
+        INSTRUCTIONS,
+        SETTING_SCREEN,
+    };
+
     class PoolGameApp : public ci::app::App {
     public:
         PoolGameApp();
@@ -30,10 +37,7 @@ namespace poolgame {
         PoolTable table_ = PoolTable();
         Instructions instructions_ = Instructions();
         SettingsScreen settings_ = SettingsScreen();
-        bool start_screen_status_;
-        bool game_screen_status_;
-        bool instructions_screen_status_;
-        bool settings_screen_status_;
+        GameState game_state;
     };
 
 }  // namespace idealgas

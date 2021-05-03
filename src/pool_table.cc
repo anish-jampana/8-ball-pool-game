@@ -330,5 +330,3 @@ namespace poolgame {
     }
 
 }  // namespace idealgas
-
-

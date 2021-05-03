@@ -72,4 +72,3 @@ namespace poolgame {
     };
 
 }  // namespace idealgas
-
